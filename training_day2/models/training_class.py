@@ -19,6 +19,7 @@ class TrainingClass(models.Model):
     preview_image = fields.Image(string='Preview')
     tag_ids = fields.Many2many('res.partner.category', string='Tags')
     member_ids = fields.One2many('training.member', 'class_id', string='Peserta')
+    class_id = fields.Many2one('master.class', string='Kelas')
 
     @api.depends('start_date', 'end_date')
     def _compute_duration_days(self):
@@ -56,6 +57,20 @@ class TrainingClass(models.Model):
         res = super(TrainingClass, self).unlink()
         return res
 
+    def action_wizard(self):
+        return {
+            'name': 'Change Date',
+            'res_model': 'wizard.training.class',
+            'view_mode': 'form',
+            'views': [[False, 'form']],
+            'context': {
+                'active_model': self._name,
+                'active_ids': self.ids,
+            },
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+        }
+
 
 class TrainingMember(models.Model):
     _name = 'training.member'
@@ -73,3 +88,11 @@ class ResPartner(models.Model):
         for rec in self:
             rec.display_name = f"{rec.name} - {rec.phone}"
 
+
+class MasterClass(models.Model):
+    _name = 'master.class'
+
+    name = fields.Char(string='Name')
+
+
+# TODO: create wizard

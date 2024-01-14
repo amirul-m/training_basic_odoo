@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_training_class_admin,training.class.admin,model_training_class,base.group_user,1,1,1,1
 access_training_member_admin,training.member.admin,model_training_member,base.group_user,1,1,1,1
+access_master_class_admin,master.class.admin,model_master_class,base.group_user,1,1,1,1
+access_wizard_training_class_admin,wizard.training.class.admin,model_wizard_training_class,base.group_user,1,1,1,1

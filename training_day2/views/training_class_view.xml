@@ -17,6 +17,8 @@
                 <field name="mentor_id" />
                 <filter name="duration_more_than_five" string="Duration > 5"
                     domain="[('max_duration','>', 5)]" />
+                <filter name="archived" string="Archived"
+                    domain="[('active','=', False)]" />
                 <group>
                     <filter name="groupby_mentor_id" string="Mentor"
                         context="{'group_by':'mentor_id'}" />
@@ -55,6 +57,10 @@
                         string="Set To Draft"
                         type="object" invisible="state != 'confirmed'"
                     />
+                    <button name="action_wizard" id="action_wizard_btn" type="object"
+                        class="oe_highlight" invisible="state != 'draft'"
+                        string="Change Date" />
+
                     <field name="state" widget="statusbar"
                         statusbar_visible="draft,confirmed" />
                 </header>
@@ -63,8 +69,10 @@
                         <group id="group_kiri">
                             <field name="name" required="1"
                                 readonly="state == 'confirmed'" />
+                            <field name="class_id" required="1" />
                             <field name="max_person" required="1"
-                                readonly="state == 'confirmed'" string="Maksimal Orang" />
+                                readonly="state == 'confirmed'"
+                                string="Maksimal Peserta" />
                             <field name="max_duration" readonly="state == 'confirmed'" />
                             <field name="mentor_id" readonly="state == 'confirmed'"
                                 domain="[('phone', '!=', False)]" />
@@ -74,7 +82,8 @@
                             <field name="start_date" readonly="state == 'confirmed'" />
                             <field name="end_date" readonly="state == 'confirmed'" />
                             <field name="duration_days" />
-                            <field name="active" readonly="state == 'confirmed'" />
+                            <field name="active" readonly="state == 'confirmed'"
+                                widget="boolean_toggle" />
                             <field name="tag_ids" widget="many2many_tags"
                                 readonly="state == 'confirmed'" />
                         </group>
@@ -101,6 +110,13 @@
         </field>
     </record>
 
+    <!-- action window master class -->
+    <record id="master_class_action" model="ir.actions.act_window">
+        <field name="name">Class</field>
+        <field name="res_model">master.class</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
     <!-- menu parent: training -->
     <menuitem
         id="training_menu"
@@ -114,5 +130,22 @@
         name="Training Class"
         parent="training_menu"
         action="training_class_action"
+        sequence="1"
+    />
+
+    <!-- menu configuration -->
+    <menuitem
+        id="configuration_training_menu"
+        name="Configuration"
+        parent="training_menu"
+        sequence="99"
+    />
+
+    <!-- menu class configuration -->
+    <menuitem
+        id="class_menu"
+        name="Class"
+        parent="configuration_training_menu"
+        action="master_class_action"
     />
 </odoo>

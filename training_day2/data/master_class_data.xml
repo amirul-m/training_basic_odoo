@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="class_js" model="master.class">
+        <field name="name">Javascript</field>
+    </record>
+
+    <record id="class_python" model="master.class">
+        <field name="name">Python</field>
+    </record>
+
+</odoo>
