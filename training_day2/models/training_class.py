@@ -1,4 +1,5 @@
 from odoo import fields, models, api
+from odoo.exceptions import UserError
 
 class TrainingClass(models.Model):
     _name = 'training.class'
@@ -28,6 +29,17 @@ class TrainingClass(models.Model):
             else:
                 value = 0
             rec.duration_days = value
+    
+    @api.constrains('mentor_id', 'start_date')
+    def _check_mentor_start_date(self):
+        for rec in self:
+            exist_record = self.search([('mentor_id', '=', rec.mentor_id.id), ('start_date', '=', rec.start_date), ('id', '!=', rec.id)])
+            if exist_record:
+                raise UserError('Tidak boleh menggunakan Mentor yang sama di tanggal start yang sama')
+    
+    @api.onchange('mentor_id')
+    def _onchange_mentor_id(self):
+        self.tag_ids = self.mentor_id.category_id
 
 
 class TrainingMember(models.Model):
@@ -36,4 +48,13 @@ class TrainingMember(models.Model):
     peserta_id = fields.Many2one('res.partner', string='Peserta', required=True)
     register_date = fields.Date(string='Tanggal Daftar')
     class_id = fields.Many2one('training.class', string='Class')
+
+
+class ResPartner(models.Model):
+    _inherit = 'res.partner'
+
+    @api.depends('name', 'phone')
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = f"{rec.name} - {rec.phone}"
 
