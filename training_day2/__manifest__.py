@@ -1,6 +1,6 @@
 {
     'name' : 'Training 17 Day 2',
-    'version' : '1.0',
+    'version' : '1.1',
     'summary': 'Day 2',
     'sequence': 10,
     'description': """
