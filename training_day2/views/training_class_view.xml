@@ -7,6 +7,24 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <!-- search view training class -->
+    <record model="ir.ui.view" id="training_class_search">
+        <field name="name">training.class.search.view</field>
+        <field name="model">training.class</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="mentor_id" />
+                <filter name="duration_more_than_five" string="Duration > 5"
+                    domain="[('max_duration','>', 5)]" />
+                <group>
+                    <filter name="groupby_mentor_id" string="Mentor"
+                        context="{'group_by':'mentor_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
     <!-- tree view training class -->
     <record id="training_class_view_tree" model="ir.ui.view">
         <field name="name">training.class.view.tree</field>
@@ -17,6 +35,7 @@
                 <field name="max_person" />
                 <field name="max_duration" />
                 <field name="active" />
+                <field name="mentor_id" />
             </tree>
         </field>
     </record>
@@ -28,37 +47,51 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="set_to_confirmed"
+                        string="Confirm"
+                        type="object" invisible="state != 'draft'"
+                    />
+                    <button name="set_to_draft"
+                        string="Set To Draft"
+                        type="object" invisible="state != 'confirmed'"
+                    />
                     <field name="state" widget="statusbar"
                         statusbar_visible="draft,confirmed" />
                 </header>
                 <sheet>
                     <group>
                         <group id="group_kiri">
-                            <field name="name" required="1" />
-                            <field name="max_person" required="1" />
-                            <field name="max_duration" />
-                            <field name="mentor_id" />
+                            <field name="name" required="1"
+                                readonly="state == 'confirmed'" />
+                            <field name="max_person" required="1"
+                                readonly="state == 'confirmed'" string="Maksimal Orang" />
+                            <field name="max_duration" readonly="state == 'confirmed'" />
+                            <field name="mentor_id" readonly="state == 'confirmed'"
+                                domain="[('phone', '!=', False)]" />
                             <field name="mentor_phone" />
                         </group>
                         <group id="group_kanan">
-                            <field name="start_date" />
-                            <field name="end_date" />
+                            <field name="start_date" readonly="state == 'confirmed'" />
+                            <field name="end_date" readonly="state == 'confirmed'" />
                             <field name="duration_days" />
-                            <field name="active" />
-                            <field name="tag_ids" widget="many2many_tags" />
+                            <field name="active" readonly="state == 'confirmed'" />
+                            <field name="tag_ids" widget="many2many_tags"
+                                readonly="state == 'confirmed'" />
                         </group>
                         <group>
-                            <field name="attachment_class" />
-                            <field name='preview_image' widget="image" />
-                            <field name="description" />
+                            <field name="attachment_class"
+                                readonly="state == 'confirmed'" />
+                            <field name='preview_image' widget="image"
+                                readonly="state == 'confirmed'" />
+                            <field name="description" readonly="state == 'confirmed'" />
                         </group>
                     </group>
                     <notebook>
                         <page name="member_ids" string="Peserta">
-                            <field name="member_ids">
+                            <field name="member_ids" readonly="state == 'confirmed'">
                                 <tree editable="bottom">
-                                    <field name="peserta_id"/>
-                                    <field name="register_date"/>
+                                    <field name="peserta_id" />
+                                    <field name="register_date" />
                                 </tree>
                             </field>
                         </page>

@@ -41,6 +41,21 @@ class TrainingClass(models.Model):
     def _onchange_mentor_id(self):
         self.tag_ids = self.mentor_id.category_id
 
+    def set_to_confirmed(self):
+        self.state = 'confirmed'
+    
+    def set_to_draft(self):
+        self.state = 'draft'
+    
+    def unlink(self):
+        for rec in self:
+            if rec.state == 'confirmed':
+                raise UserError('Tidak boleh delete training ketika status sudah confirmed')
+        
+        # inherit
+        res = super(TrainingClass, self).unlink()
+        return res
+
 
 class TrainingMember(models.Model):
     _name = 'training.member'
