@@ -58,7 +58,7 @@
                         type="object" invisible="state != 'confirmed'"
                     />
                     <button name="action_wizard" id="action_wizard_btn" type="object"
-                        class="oe_highlight" invisible="state != 'draft'"
+                        class="oe_highlight" invisible="state != 'confirmed'"
                         string="Change Date" />
 
                     <field name="state" widget="statusbar"
