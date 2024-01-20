@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- action training.class.classical -->
+    <record id="training_class_classical_action" model="ir.actions.act_window">
+        <field name="name">Training Class Classical</field>
+        <field name="res_model">training.class.classical</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- new menu training.class.classical -->
+    <menuitem
+        id="training_class_classical_menu"
+        name="Training Class Classical"
+        parent="training_day2.training_menu"
+        action="training_class_classical_action"
+        sequence="2"
+    />
+
+    <!-- action training.class.delegation -->
+    <record id="training_class_delegation_action" model="ir.actions.act_window">
+        <field name="name">Training Class Delegation</field>
+        <field name="res_model">training.class.delegation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- new menu training.class.delegation -->
+    <menuitem
+        id="training_class_delegation_menu"
+        name="Training Class Delegation"
+        parent="training_day2.training_menu"
+        action="training_class_delegation_action"
+        sequence="3"
+    />
+
+    <record id="training_class_delegation_view_form" model="ir.ui.view">
+        <field name="name">training.class.delegation.view.form</field>
+        <field name="model">training.class.delegation</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" />
+                        <field name="description4" />
+                        <field name="training_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

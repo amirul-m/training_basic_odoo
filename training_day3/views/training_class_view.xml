@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- inherit form view training class -->
+    <record id="training_class_view_form_day3" model="ir.ui.view">
+        <field name="name">training.class.view.form</field>
+        <field name="model">training.class</field>
+        <field name="inherit_id" ref="training_day2.training_class_view_form" />
+        <field name="arch" type="xml">
+            <!-- Add field di dalam suatu group -->
+            <group id="group_kanan" position="inside">
+                <field name="description2" string="Description 2 (Inside Group)"/>
+            </group>
+
+            <!-- Add field after suatu field -->
+            <field name="duration_days" position="after">
+                <field name="description2" string="Description 2 (After)"/>
+            </field>
+            
+
+            <!-- Change label description -->
+            <field name="description" position="attributes">
+                <attribute name="string">Description 1 (Position Attribute)</attribute>
+            </field>
+            
+            <!-- Hilangkan field description. Hati hati -->
+            <!-- <field name="description" position="replace">
+
+            </field> -->
+
+            <!-- cara hilangkan suatu field tanpa replace -->
+            <field name="description" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <!-- cara 1: pakai tag scr langsung -->
+            <field name="description" position="after">
+                <field name="description2"/>
+            </field>
+
+            <!-- cara 2: pakai xpath -->
+            <!-- <xpath expr="//field[@name='description']" position="after">
+                <field name="description2" string="Description 2 (After -Xpath)" />
+            </xpath> -->
+
+            <!-- Pindah field description ke sebelum tags -->
+            <field name="tag_ids" position="before">
+                <field name="description"/>
+            </field>
+
+            <sheet position="after">
+                <!-- after sheet -->
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </sheet>
+
+        </field>
+    </record>
+
+    <!-- inherit tree view training class -->
+    <record id="training_class_view_tree_day3" model="ir.ui.view">
+        <field name="name">traiass.view.tree</field>
+        <field name="model">training.class</field>
+        <field name="inherit_id" ref="training_day2.training_class_view_tree" />
+        <field name="arch" type="xml">
+            <field name="mentor_id" position="after">
+                <field name="state"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- inherit search view training class -->
+    <record model="ir.ui.view" id="training_class_search_day3">
+        <field name="name">training.class.search</field>
+        <field name="model">training.class</field>
+        <field name="inherit_id" ref="training_day2.training_class_search" />
+        <field name="arch" type="xml">
+            <field name="mentor_id" position="before">
+                <field name="state"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- inherit wizard training class -->
+    <record id="wizard_training_class_view_form_day3" model="ir.ui.view">
+        <field name="name">wizard.training.class.view.form</field>
+        <field name="model">wizard.training.class</field>
+        <field name="inherit_id" ref="training_day2.wizard_training_class_view_form" />
+        <field name="arch" type="xml">
+            <field name="end_date" position="after">
+                <field name="create_date"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- inherit menu. harus copy semua -->
+    <menuitem
+        id="training_day2.training_class_menu"
+        name="Training Class (New)"
+        parent="training_day2.training_menu"
+        action="training_day2.training_class_action"
+        sequence="1"
+    />
+
+    <!-- inherit action window. cukup field yang mau dirubah saja -->
+    <record id="training_day2.training_class_action" model="ir.actions.act_window">
+        <field name="name">Training Class (New)</field>
+    </record>
+
+
+</odoo>

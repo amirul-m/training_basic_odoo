@@ -3,13 +3,14 @@ from odoo.exceptions import UserError
 
 class TrainingClass(models.Model):
     _name = 'training.class'
+    _description = 'Training'
 
     name = fields.Char(string='Name')
     max_person = fields.Integer(string='Max Person')
     active = fields.Boolean(string='Active', default=True)
     max_duration = fields.Float(string='Max Duration')
-    start_date = fields.Date(string='Start Date', required=True)
-    end_date = fields.Datetime(string='End Date (Datetime)', required=True)
+    start_date = fields.Date(string='Start Date')
+    end_date = fields.Datetime(string='End Date (Datetime)')
     duration_days = fields.Integer(string='Duration in Days', compute='_compute_duration_days')
     mentor_id = fields.Many2one('res.partner', string='Mentor')
     mentor_phone = fields.Char(string='Phone', related='mentor_id.phone')
@@ -41,6 +42,11 @@ class TrainingClass(models.Model):
     @api.onchange('mentor_id')
     def _onchange_mentor_id(self):
         self.tag_ids = self.mentor_id.category_id
+        # new_tags = [(0, 0, {'name': 'Tag New 1'})]
+        # new_tags = []
+        # new_tags.extend([(1, 0, x.id) for x in self.mentor_id.category_id])
+        # new_tags.extend([(1, 0, x.id) for x in self.tag_ids])
+        # self.write({'tag_ids': new_tags})
 
     def set_to_confirmed(self):
         self.state = 'confirmed'
@@ -74,6 +80,7 @@ class TrainingClass(models.Model):
 
 class TrainingMember(models.Model):
     _name = 'training.member'
+    _description = 'Peserta Training'
 
     peserta_id = fields.Many2one('res.partner', string='Peserta', required=True)
     register_date = fields.Date(string='Tanggal Daftar')

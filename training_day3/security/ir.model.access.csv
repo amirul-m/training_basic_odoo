@@ -2,3 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 training_day2.access_master_class_admin,master.class.admin,training_day2.model_master_class,training_day3.group_training_admin,1,1,1,1
 access_master_class_user,master.class.user,training_day2.model_master_class,training_day3.group_training_user,1,0,0,0
 training_day2.access_training_class_admin,training.class.admin,training_day2.model_training_class,training_day3.group_training_user,1,1,1,1
+access_training_class_classical_admin,training.class.classical.admin,model_training_class_classical,training_day3.group_training_admin,1,1,1,1
+access_training_class_delegation_admin,training.class.delegation.admin,model_training_class_delegation,training_day3.group_training_admin,1,1,1,1

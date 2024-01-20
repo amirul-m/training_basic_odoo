@@ -16,6 +16,7 @@
         <field name="name">Training Admin</field>
         <field name="category_id" ref="category_training" />
         <field name="implied_ids" eval="[(4, ref('group_training_user'))]"/>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
 
     <record id="rule_training_user" model="ir.rule">

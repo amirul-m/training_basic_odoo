@@ -7,10 +7,12 @@
     """,
     'category': '',
     'website': 'https://www.arkana.co.id',
-    'depends': ['training_day2'],
+    'depends': ['base_setup', 'training_day2'],
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
+        'views/training_class_view.xml',
+        'views/training_class_classical_view.xml',
     ],
     'demo': [
     ],
