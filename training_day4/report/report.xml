@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Custom Quotation / Order pada sale.order -->
     <template id="report_saleorder_document_day4" inherit_id="sale.report_saleorder_document">
+        <!-- Tambahkan team sales -->
         <xpath expr="//span[@t-field='doc.user_id']/../.." position="after">
             <div class="row mt-4 mb-2">
                 <div t-if="doc.team_id" class="col-auto col-3 mw-100 mb-2">
@@ -11,6 +13,7 @@
             </div>
         </xpath>
 
+        <!-- Tambahkan kolom baru (Product) di table order line -->
         <xpath expr="//th[@name='th_description']" position="before">
             <th name="th_product_name" class="text-start">Product</th>
         </xpath>

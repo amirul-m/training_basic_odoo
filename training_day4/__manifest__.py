@@ -12,6 +12,7 @@
         'data/data.xml',
         'views/training_class_view.xml',
         'report/report.xml',
+        'report/training_class_report.xml',
     ],
     'demo': [
     ],

@@ -4,7 +4,7 @@
     <record id="training_class_view_form_day4" model="ir.ui.view">
         <field name="name">training.class.view.form</field>
         <field name="model">training.class</field>
-        <field name="inherit_id" ref="training_day2.training_class_view_form"/>
+        <field name="inherit_id" ref="training_day2.training_class_view_form" />
         <field name="arch" type="xml">
             <field name="name" position="before">
                 <field name="name_seq" readonly="1" />
@@ -12,7 +12,8 @@
 
             <xpath expr="//group[@id='group_kiri']/.." position="before">
                 <div class="oe_button_box" name="button_box">
-                    <button class="oe_stat_button" type="object" name="action_view_member_ids">
+                    <button class="oe_stat_button" type="object"
+                        name="action_view_member_ids">
                         Members
                     </button>
                 </div>
