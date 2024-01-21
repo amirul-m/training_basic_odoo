@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_saleorder_document_day4" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//span[@t-field='doc.user_id']/../.." position="after">
+            <div class="row mt-4 mb-2">
+                <div t-if="doc.team_id" class="col-auto col-3 mw-100 mb-2">
+                    <strong>Team Sales:</strong><br/>
+                    <span class="m-0" t-field="doc.team_id"/>
+                </div>
+            </div>
+        </xpath>
+
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="th_product_name" class="text-start">Product</th>
+        </xpath>
+
+        <td name='td_name' position="before">
+            <td name="td_product_name"><span t-field="line.product_template_id"></span></td>
+        </td>
+    </template>
+
+</odoo>

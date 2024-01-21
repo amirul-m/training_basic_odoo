@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="training_class_view_form_day4" model="ir.ui.view">
+        <field name="name">training.class.view.form</field>
+        <field name="model">training.class</field>
+        <field name="inherit_id" ref="training_day2.training_class_view_form"/>
+        <field name="arch" type="xml">
+            <field name="name" position="before">
+                <field name="name_seq" readonly="1" />
+            </field>
+
+            <xpath expr="//group[@id='group_kiri']/.." position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" type="object" name="action_view_member_ids">
+                        Members
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="training_member_action" model="ir.actions.act_window">
+        <field name="name">Training Member</field>
+        <field name="res_model">training.member</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="training_member_view_tree" model="ir.ui.view">
+        <field name="name">training.member.view.tree</field>
+        <field name="model">training.member</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="peserta_id" />
+                <field name="register_date" />
+                <field name="class_id" />
+            </tree>
+        </field>
+    </record>
+
+</odoo>
